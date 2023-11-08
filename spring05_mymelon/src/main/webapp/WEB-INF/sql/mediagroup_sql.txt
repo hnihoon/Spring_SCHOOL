@@ -7,3 +7,11 @@ CREATE TABLE mediagroup (
 -- 시퀀스 생성
 create sequence mediagroup_seq;
 
+-- 삭제
+delete from mediagroup
+where mediagroupno = ?
+
+-- 행 수정
+select * from mediagroup where mediagroupno=22
+
+update mediagroup set title=? where mediagroupno=22
