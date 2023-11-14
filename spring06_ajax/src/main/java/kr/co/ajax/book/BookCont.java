@@ -52,10 +52,24 @@ public class BookCont {
 			//예) 검색어 : 자바
 			//	 "자바" "자바 프로그래밍" "자바 안드로이드" 반환
 			ArrayList<String> list = search(keyword);
-			System.out.println(list.toString());
+			//System.out.println(list.toString());
 			
+			//응답 메세지 -> 갯수|찾은문자열, 찾은문자열, 찾은문자열...
+			//			예)자바, 자바 프로그래밍, 자바 안드로이드
+			int size = list.size();
+			if(size>0) {
+				message += size + "|";
+				for(int i=0; i<size; i++) {
+					String title = list.get(i);
+					message += title;
+					if(i<size-1) {
+						message += ",";
+					}
+				}
+			}
 		}
 		
+		System.out.println(message);
 		return message;
 	}
 	
