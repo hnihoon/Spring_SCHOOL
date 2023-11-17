@@ -1,5 +1,6 @@
 package kr.co.itwill.product;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,4 +22,27 @@ public class ProductDAO {
 		sqlSession.insert("product.insert", map);
 	}
 	
+	public List<Map<String, Object>> list(){
+		return sqlSession.selectList("product.list");
+	}
+	
+	public List<Map<String, Object>> search(String product_name) {
+		
+		//영문자일 경우 대소문자 구분없이
+		//return sqlSession.selectList("product.search", "%" + product_name.toUpperCase() + "%");
+		
+		return sqlSession.selectList("product.search", "%" + product_name + "%");
+	}
+	
+	public Map<String, Object> detail(int product_code){
+		return sqlSession.selectOne("product.detail",product_code);
+	}
+	
+	public void delete(String product_code) {
+		sqlSession.delete("product.delete", product_code);
+	}
+	
+	public void update(Map<String, Object> map) {
+		sqlSession.update("product.update", map);
+	}
 }

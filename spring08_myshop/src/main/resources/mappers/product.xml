@@ -13,4 +13,34 @@
 		VALUES(product_seq.nextval, #{product_name},#{description}, #{price}, #{filename}, #{filesize})
 	</insert>
 	
+	<select id="list" resultType="java.util.Map">
+		SELECT PRODUCT_CODE , PRODUCT_NAME , PRICE, DESCRIPTION , FILENAME , FILESIZE 
+		FROM product
+		ORDER BY product_name
+	</select>
+	
+	<select id="search" resultType="java.util.Map" parameterType="String">
+		SELECT PRODUCT_CODE , PRODUCT_NAME , PRICE, DESCRIPTION , FILENAME , FILESIZE 
+		FROM product
+		WHERE product_name LIKE #{keyword}
+		ORDER BY product_name
+	</select>
+	
+	<select id="detail" resultType="java.util.Map" parameterType="int">
+		SELECT PRODUCT_CODE , PRODUCT_NAME , PRICE, DESCRIPTION , FILENAME , FILESIZE 
+		FROM product
+		WHERE product_code = #{product_code}
+	</select>
+	
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM product
+		WHERE product_code = #{product_code}
+	</delete>
+	
+	<update id="update" parameterType="java.util.Map">
+		UPDATE product
+		SET product_name=#{product_name}, description=#{description}, price=#{price}
+		   ,filename=#{filename}, filesize=#{filesize}
+		WHERE product_code=#{product_code}
+	</update>
 </mapper>

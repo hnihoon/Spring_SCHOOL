@@ -47,6 +47,50 @@
     </div> <!-- col end -->
   </div> <!-- row end -->
   
+  <div class="row">
+    <div class="col-sm-12">
+    	<!-- 검색 -->
+    	<form method="get" action="search">
+    		상품명 : <input type="text" name="product_name">
+    			   <input type="submit" value="검색" class="btn">
+    	</form>
+    </div> <!-- col end -->
+  </div> <!-- row end -->
+  
+  <div class="row">
+	    <!-- varStatus="상태용 변수" -->
+    	<c:forEach items="${list}" var="row" varStatus="vs">
+    		<div class="col-sm-4 sol-md-4">
+    		<c:choose>
+    			<c:when test="${row.FILENAME != '-'}">
+    				<a href="detail/${row.PRODUCT_CODE}">
+    					<img src="/storage/${row.FILENAME}" class="img-responsive margin" style="width:100%">
+    				</a>
+    			</c:when>
+    			<c:otherwise>
+    				등록된 사진 없음!!
+    			</c:otherwise>
+    		</c:choose>
+    		<br>
+    			 <!-- http://localhost:9095/product/detail?product_code=22 -->
+	             <%-- 상품명 : <a href="detail?product_code=${row.PRODUCT_CODE}">${row.PRODUCT_NAME}</a> --%>
+	             
+    			 <!-- RESTful Web Service URL 형식으로 서버에 요청 -->
+    			 <!-- http://localhost:9095/product/detail/5 -->
+    			 상품명 : <a href="detail/${row.PRODUCT_CODE}">${row.PRODUCT_NAME}</a>
+    		<br>
+    		상품가격 : <fm:formatNumber value="${row.PRICE}" pattern="#,###"/> 
+    		</div>
+    		<!-- 한줄에 3칸씩 -->
+    		<c:if test="${vs.count mod 3==0 }">
+    			</div>
+    			<div style="height: 50px;"></div>
+    			<div class="row">
+    		</c:if>
+    	</c:forEach>
+	  </div> <!-- row end -->
+  
+  <!-- 본문 끝 -->
 </div> <!-- container end -->
 
 <div class="mt-5 p-4 bg-dark text-white text-center">
