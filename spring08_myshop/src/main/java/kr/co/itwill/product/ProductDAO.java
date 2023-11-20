@@ -38,11 +38,48 @@ public class ProductDAO {
 		return sqlSession.selectOne("product.detail",product_code);
 	}
 	
-	public void delete(String product_code) {
+	public String filename(int product_code) {
+		return sqlSession.selectOne("product.filename", product_code);
+	}
+	
+	public void delete(int product_code) {
 		sqlSession.delete("product.delete", product_code);
 	}
 	
 	public void update(Map<String, Object> map) {
-		sqlSession.update("product.update", map);
+		sqlSession.insert("product.update", map);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

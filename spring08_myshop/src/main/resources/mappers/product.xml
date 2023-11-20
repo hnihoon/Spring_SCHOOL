@@ -32,15 +32,50 @@
 		WHERE product_code = #{product_code}
 	</select>
 	
-	<delete id="delete" parameterType="java.util.Map">
+	<select id="filename" resultType="String" parameterType="int">
+		SELECT FILENAME 
+		FROM product
+		WHERE product_code = #{product_code}
+	</select>
+	
+	<delete id="delete" parameterType="int">
 		DELETE FROM product
 		WHERE product_code = #{product_code}
 	</delete>
 	
 	<update id="update" parameterType="java.util.Map">
 		UPDATE product
-		SET product_name=#{product_name}, description=#{description}, price=#{price}
-		   ,filename=#{filename}, filesize=#{filesize}
+		SET product_name=#{product_name}
+		  , price=#{price}
+		  , description=#{description}
+		  , filename=#{filename}
+		  , filesize=#{filesize}
 		WHERE product_code=#{product_code}
 	</update>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

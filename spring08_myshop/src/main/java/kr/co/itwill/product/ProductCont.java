@@ -58,7 +58,7 @@ public class ProductCont {
 		
 		String filename="-";
 		long filesize = 0;
-		if(img != null || !img.isEmpty()) { //파일이 존재한다면
+		if(img != null && !img.isEmpty()) { //파일이 존재한다면
 			filename=img.getOriginalFilename();
 			filesize=img.getSize();
 			try {
@@ -120,39 +120,62 @@ public class ProductCont {
 		return mav;
 	}
 	
-	@PostMapping("/delete")
-	public String delete(@RequestParam Map<String, Object> map) {
-		productDao.delete((String)map.get("product_code"));
+	@PostMapping("delete")
+	public String delete(HttpServletRequest req) {
+		int product_code = Integer.parseInt(req.getParameter("product_code"));
+		
+		//삭제하고자 하는 파일명 가져오기
+		String filename=productDao.filename(product_code);
+		
+		//첨부된 파일 삭제하기
+		if(filename != null && !filename.equals("-")) {
+			ServletContext application = req.getSession().getServletContext();
+			String path = application.getRealPath("/storage");
+			File file=new File(path + "\\" + filename);
+			if(file.exists()) {
+				file.delete();
+			}
+		}
+		
+		productDao.delete(product_code);
+		
 		return "redirect:/product/list";
 	}
 	
 	@PostMapping("/update")
-	public String update(@RequestParam Map<String, Object> map,
-						 @RequestParam MultipartFile img,
-						 HttpServletRequest req) {
+	public String update(@RequestParam Map<String, Object> map
+					   , @RequestParam MultipartFile img
+					   , HttpServletRequest req){
 		
 		String filename="-";
 		long filesize = 0;
-		if(img != null || !img.isEmpty()) { //파일이 존재한다면
+		if(img != null && !img.isEmpty()) { //파일이 존재한다면
 			filename=img.getOriginalFilename();
 			filesize=img.getSize();
 			try {
 				ServletContext application = req.getSession().getServletContext();
 				String path = application.getRealPath("/storage"); //실제 물리적인 경로
 				img.transferTo(new File(path + "\\" + filename)); //파일저장
+				
 			} catch(Exception e) {
 				System.out.println(e);
 			}
+		} else {
+			int product_code = Integer.parseInt(map.get("product_code").toString());
+			Map<String, Object> oldProduct=productDao.detail(product_code);
+			filename=oldProduct.get("FILENAME").toString();
+			filesize=Long.parseLong(oldProduct.get("FILESIZE").toString());
 		}
 		
 		map.put("filename", filename);
 		map.put("filesize", filesize);
-		
 		productDao.update(map);
 		
 		return "redirect:/product/list";
 	}
 }
+
+
 
 
 
