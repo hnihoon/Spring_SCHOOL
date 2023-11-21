@@ -1,14 +1,15 @@
 package kr.co.itwill.comment;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -39,4 +40,21 @@ public class CommentCont {
 		
 		return cnt;
 	}
+	
+	@GetMapping("/list")
+	@ResponseBody
+	public List<CommentDTO> mCommentServiceList(int product_code) throws Exception {
+		List<CommentDTO> list = commentDao.commentList(product_code);
+		return list;
+	}
+	
 }
+
+
+
+
+
+
+
+
+

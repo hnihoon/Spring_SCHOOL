@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
+import kr.co.itwill.comment.CommentDAO;
 
 @Controller
 @RequestMapping("/product")
@@ -112,6 +113,13 @@ public class ProductCont {
     //public ModelAndView detail(@RequestParam int product_code) {}
 	  
 	//http://localhost:9095/product/detail/5
+	/*
+	 * @GetMapping("/detail/{product_code}") public ModelAndView
+	 * detail(@PathVariable int product_code) { ModelAndView mav = new
+	 * ModelAndView(); mav.setViewName("product/detail"); mav.addObject("product",
+	 * productDao.detail(product_code)); return mav; }
+	 */
+	
 	@GetMapping("/detail/{product_code}")
 	public ModelAndView detail(@PathVariable int product_code) {
 		ModelAndView mav = new ModelAndView();

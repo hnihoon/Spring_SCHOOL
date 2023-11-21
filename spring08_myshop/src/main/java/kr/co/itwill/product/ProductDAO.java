@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itwill.comment.CommentDTO;
+
 @Repository
 public class ProductDAO {
 
@@ -49,6 +51,7 @@ public class ProductDAO {
 	public void update(Map<String, Object> map) {
 		sqlSession.insert("product.update", map);
 	}
+	
 }
 
 

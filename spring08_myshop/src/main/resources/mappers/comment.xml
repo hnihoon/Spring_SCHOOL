@@ -13,6 +13,13 @@
 		VALUES (pcomment_seq.nextval, #{product_code}, #{content}, #{wname})
 	</insert>
 	
+	 <select id="list" parameterType="int" resultType="kr.co.itwill.comment.CommentDTO">
+		SELECT cno, product_code, content, wname, regdate
+		FROM pcomment
+		WHERE product_code=#{product_code}
+		ORDER BY regdate
+	</select>
+	
 </mapper>
 
 

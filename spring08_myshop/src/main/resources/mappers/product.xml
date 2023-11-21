@@ -26,11 +26,11 @@
 		ORDER BY product_name
 	</select>
 	
-	<select id="detail" resultType="java.util.Map" parameterType="int">
+ 	<select id="detail" resultType="java.util.Map" parameterType="int">
 		SELECT PRODUCT_CODE , PRODUCT_NAME , PRICE, DESCRIPTION , FILENAME , FILESIZE 
 		FROM product
 		WHERE product_code = #{product_code}
-	</select>
+	</select> 
 	
 	<select id="filename" resultType="String" parameterType="int">
 		SELECT FILENAME 

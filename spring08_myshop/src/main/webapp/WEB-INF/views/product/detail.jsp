@@ -125,7 +125,12 @@
   
   <div class="row">
   	<div class="col-sm-12"> <!-- 댓글목록 -->
-  		<div class="commentList"></div>
+  		<div class="commentList">
+  		
+  		<c:forEach items="${comment}" var="row" varStatus="vs">
+  			${row.content}<br>
+  		</c:forEach>
+  		</div>
   	</div>	
   </div>
   <!-- 댓글 끝 -->
@@ -133,6 +138,10 @@
   <!-- 댓글 관련 자바스크립트 -->
   	<script>
   		let product_code = '${product.PRODUCT_CODE}'; //부모글번호
+  		
+  		$(document).ready(function(){
+  			commentList();
+  		});
   		
   		//댓글등록 버튼을 클릭했을 때
   		$("#commentInsertBtn").click(function(){
@@ -159,12 +168,59 @@
   			   ,error:function(error){
   				   alert(error)
   			   }
-  			   ,success:function(data){
-  				   alert(data)
+  			   ,success:function(result){
+  				   //alert(result)
+  				   if(result==1){
+  					   commentList();
+  					   $("#content").val(''); //기존 댓글내용을 빈 문자열로 대입(초기화)
+  				   }
   			   }
   			});
   		}
   		
+  		function commentList(){
+  			$.ajax({
+  				url: '/comment/list'
+  			  , type: 'get'
+  			  , data: {'product_code' : product_code} //부모글번호(전역변수로 선언되어 있음)
+  			  , error:function(error){
+  				  alert(error)
+  			  }
+  			  , success:function(result){
+  				  let a=''; //출력할 결과값
+  				  $.each(result, function(key, value){
+  					  
+  					  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom:15px;">';
+  					  a += '	<div class="commentInfo' + value.cno + '">';
+  					  a += '    	댓글번호:' + value.cno + ' / 작성자:' + value.wname + ' ' + value.regdate;
+  					  a += '		<a href="javascript:commentUpdate(' + value.cno + ',\'' + value.content + '\')">[수정]</a>';
+  					  a += '		<a href="javascript:commentDelete(' + value.cno + ')">[삭제]</a>';
+  					  a += '	</div>';
+  					  a += '	<div class="commentContent' + value.cno + '">';
+  					  a += '  		<p>내용:' + value.content + '</p>';
+  					  a += '	</div>';
+  					  a += '</div>'
+  				  }); //each() end
+  				  
+  				  $(".commentList").html(a);
+  			  }
+  		});
+  	}
+  	
+  		//댓글수정 - 댓글내용을 <input type="text">에 출력
+  		function commentUpdate(cno, content){
+  			let a = '';
+  			a += '<div class="input-group">';
+  			a += '		<input type="text" value="' + content + '" id="content_' + cno + '">';
+  			a += '		<button type="button" onclick="commentUpdateProc(' + cno + ')">수정</button>';
+  			a += '</div>';
+  			$(".commentContent" + cno).html(a);
+  		}
+  		
+  		function commentUpdateProc(cno){
+  			let updateContent = $("#content_" + cno).val();
+  			alert(updateContent);
+  		}
   </script>
   
   <!-- 본문 끝 -->
@@ -176,10 +232,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
