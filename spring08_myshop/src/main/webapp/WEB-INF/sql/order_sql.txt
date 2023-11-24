@@ -1,0 +1,28 @@
+--order_sql.txt
+
+create table orderlist (
+    orderno      char(15)      primary key      --주문서번호
+   ,id           varchar(15)   not null         --아이디
+   ,totalamount  number                         --총결제금액
+   ,payment      varchar(10)   not null         --결제구분 (cash,card등)
+   ,deliverynm   varchar(100)  not null         --받는사람
+   ,deliveryaddr varchar(2000) not null         --받는주소
+   ,deliverymsg  varchar(2000)                  --배송메세지
+   ,ordercheck   char(1)       not null         --결과상태(Y:배송완료, C:주문취소, I:진행
+,orderdate    date          default sysdate  --주문일
+);
+
+--주문서 번호 생성
+select max(orderno)
+from orderlist
+where orderno like '20231123144315%';
+
+select nvl(max(orderno), '1')
+from orderlist
+where orderno like '20231123144315%';
+
+--총결제금액 : totalamount
+select sum(price*qty)
+from cart
+where id='itwill';
+

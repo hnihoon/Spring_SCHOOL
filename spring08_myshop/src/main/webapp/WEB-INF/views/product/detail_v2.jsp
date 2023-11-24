@@ -29,15 +29,7 @@
    	   document.productfrm.action="/product/update";
    	   document.productFrm.submit();
    	  	}
- 
-	function product_cart(){
-  		if($("#qty").val()=="0"){
-  			alert("상품수량 선택해 주세요~");
-  		} else {
-  		 	document.productfrm.action="/cart/insert";
-  			document.productfrm.submit(); 
-  		}
-  	} 
+  	
   </script>
 </head>
 <body>
@@ -101,23 +93,10 @@
 				<input type="file" name="img" class="form-control"></td>
 		    </tr>
 		    <tr>
-		    	<td>상품수량</td>
-		    	<td>
-			    	<select name="qty" id="qty" class="form-control">
-			    		<option value="0">◎선택◎</option>
-			    		<option value="1">1</option>
-			    		<option value="2">2</option>
-			    		<option value="3">3</option>
-			    		<option value="4">4</option>
-			    		<option value="5">5</option>
-			    	</select>
-		    	</td>
-		    </tr>
-		    <tr>
 			<td colspan="2" align="center">
-			    <input type="button" value="상품수정" onclick="product_update()" class="btn btn-warning"> 
-			    <input type="button" value="상품삭제" onclick="product_delete()" class="btn btn-danger"> 
-			    <input type="button" value="장바구니" onclick="product_cart()" class="btn btn-info"> 
+			    <input type="submit" value="상품수정" onclick="product_update()" class="btn btn-warning"> 
+			    <input type="submit" value="상품삭제" onclick="product_delete()" class="btn btn-danger"> 
+			    <input type="submit" value="장바구니" onclick="product_cart()" class="btn btn-info"> 
 			</td>
 		    </tr>   
 		    </tbody> 
@@ -247,7 +226,7 @@
   			$.ajax({
   				 url:'/comment/update'
   				,type:'post'
-  				,data:{'cno':cno, 'content':updateContent} //또는 "cno="+cno+"&content="+updateContent
+  				,data:{'cno':cno, 'content':updateContent}
   				,success:function(result){
   					if(result==1){
   						alert("댓글이 수정되었습니다.");

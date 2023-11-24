@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +49,76 @@ public class CommentCont {
 		return list;
 	}
 	
+	@PostMapping("/update")
+	@ResponseBody
+	public int mCommentServiceUpdateProc(@RequestParam int cno, @RequestParam String content) throws Exception {
+		CommentDTO commentDto = new CommentDTO();
+		commentDto.setCno(cno);
+		commentDto.setContent(content);
+		//로그인하고 난 후, 댓글수정을 하려면 mCommentServiceInsert()함수 참조
+		
+		int cnt = commentDao.commentUpdage(commentDto);
+		return cnt;
+	}					
+						  
+	@PostMapping("/delete/{cno}")
+	@ResponseBody
+	public int mCommentServiceDelete(@PathVariable int cno) throws Exception{
+		int cnt = commentDao.commentDelete(cno);
+		return cnt;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

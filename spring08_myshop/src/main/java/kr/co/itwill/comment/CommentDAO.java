@@ -20,7 +20,34 @@ public class CommentDAO {
 		return sqlSession.insert("comment.insert", comment);
 	}
 	
-	
 	 public List<CommentDTO> commentList(int product_code){
-		 return sqlSession.selectList("comment.list", product_code); }
+		 return sqlSession.selectList("comment.list", product_code); 
+    }
+	 
+	 public int commentUpdage(CommentDTO comment) {
+		return sqlSession.update("comment.update", comment);
+	}
+	 
+	 public int commentDelete(int cnt) throws Exception {
+		 return sqlSession.delete("comment.delete", cnt);
+	 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
