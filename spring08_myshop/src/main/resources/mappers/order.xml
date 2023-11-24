@@ -10,5 +10,28 @@
 		FROM orderlist
 		WHERE orderno LIKE #{cdate} || '%'
  	</select>
- 
+ 	
+ 	<select id="totalamount" resultType="int" parameterType="String">
+ 		SELECT SUM(price*qty)
+ 		FROM cart
+ 		WHERE id=#{s_id}	
+ 	</select>
+ 	
+ 	<insert id="orderlistInsert" parameterType="kr.co.itwill.order.OrderDTO">
+ 		INSERT INTO orderlist (orderno, id, totalamount, payment, deliverynm, deliveryaddr, ordercheck)
+ 		VALUES (#{orderno}, #{id}, #{totalamount}, #{payment}, #{deliverynm}, #{deliveryaddr}, 'I')
+ 	</insert>
+ 	
+ 	<insert id="orderdetailInsert" parameterType="java.util.HashMap">
+	    INSERT INTO orderdetail(ono, orderno, product_code, qty, price)
+	    SELECT orderdetail_seq.nextval, #{orderno}, product_code, qty, price
+	    FROM cart
+	    WHERE id=#{s_id}
+	</insert>
+ 	
+ 	<delete id="orderDelete" parameterType="String">
+		DELETE FROM cart
+		WHERE id=#{s_id} 	
+ 	</delete>
+ 	
  </mapper>

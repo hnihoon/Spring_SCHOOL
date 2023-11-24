@@ -88,7 +88,12 @@
 		</dependency>
 		
 		<!-- 사용자 추가 라이브러리(의존성) 끝 -->
-		
+
+		<dependency>
+			<groupId>kr.co</groupId>
+			<artifactId>mymelon</artifactId>
+			<version>ver 1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

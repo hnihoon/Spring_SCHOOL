@@ -25,4 +25,31 @@ where orderno like '20231123144315%';
 select sum(price*qty)
 from cart
 where id='itwill';
+/////////////////////////////////////////////////////////////
 
+--주문 상세 내역
+create table orderdetail (
+    ono          number   primary key  --번호
+   ,orderno      char(15) not null     --주문번호
+   ,product_code number   not null     --상품코드
+   ,qty          number   not null     --수량
+   ,price        number   not null     --가격
+);
+
+--주문 상세 내역 시퀀스 생성
+create sequence orderdetail_seq;
+
+--cart테이블(장바구니)에 있는 상품 조회하기
+select product_code, qty, price, id 
+from cart
+where id='itwill';
+
+--cart테이블에 있는 주문상품을 orderdetail테이블 옮겨 담기
+insert into orderdetail(ono, orderno, product_code, qty, price)
+	select orderdetail_seq.nextval, '202311241204561', product_code, qty, price
+	from cart
+	where id='itwill';
+	
+	
+
+	
