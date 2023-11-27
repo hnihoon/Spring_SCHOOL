@@ -1,15 +1,13 @@
 package kr.co.itwill.order;
 
-import java.net.Authenticator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Properties;
 
-import javax.annotation.processing.SupportedSourceVersion;
-
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
-import net.utility.MyAuthenticator;
 
 @Controller
 @RequestMapping("/order")
 public class OrderCont {
-
+	
 	public OrderCont() {
 		System.out.println("-----OrderCont()객체생성됨");
 	}
@@ -83,12 +80,12 @@ public class OrderCont {
 			map.put("s_id", s_id);
 			
 			int result = orderDao.orderdetailInsert(map);
+			//7)주문내역서 메일 보내기
 			
 			if(result != 0) {
 				//6) cart테이블 비우기
 				orderDao.orderDelete(s_id);
 				
-				//7)주문내역서 메일 보내기
 				
 				mav.addObject("msg1", "<img src='../images/hot.gif'>");
 				mav.addObject("msg2", "<p>주문이 완료되었습니다</p>");
