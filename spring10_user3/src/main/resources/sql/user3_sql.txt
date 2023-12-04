@@ -1,0 +1,13 @@
+-- user3_sql.txt
+
+create table user3 (
+    no      int          primary key
+   ,name    varchar(100) not null
+   ,email   varchar(200) null
+   ,pwd     varchar(100) not null
+   ,gender  char(1)      default '1'
+   ,del     char(1)      default '0'
+   ,regdate date         default sysdate
+);
+
+create sequence user3_seq;
