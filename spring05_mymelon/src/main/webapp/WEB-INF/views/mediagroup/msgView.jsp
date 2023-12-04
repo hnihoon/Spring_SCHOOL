@@ -17,7 +17,6 @@
 
 	<div class="content">
 		<dl>
-			<dd>${al}
 			<dd>${msg1 != null ? img : ""} ${msg1}</dd>
 		</dl>
 		<p>

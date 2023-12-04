@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>createForm.jsp</title>
+<title>deleteForm.jsp</title>
 	<style>
 		*{font-family: gulim; font-size: 24px; }
 	</style>
@@ -24,7 +24,7 @@
 		
 		<div class='bottom'>
 			<input type='submit' value='삭제' >
-			<input type='button' value='목록' onclick="location.href='list.do'">
+			<input type='button' value='목록' onclick="location.href='list.do?${mediagroupno}'">
 		</div>
 	</form>
 	
